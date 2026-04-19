@@ -1,32 +1,49 @@
-export default function About() {
+import React from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+
+interface AboutProps {
+  config: {
+    about_text: string;
+    font_size?: number;
+  };
+}
+
+const About: React.FC<AboutProps> = ({ config }) => {
+  const fadeUpRef = useIntersectionObserver();
+  const baseSize = config.font_size || 16;
+
   return (
-    <section id="about" className="py-12 px-6">
-      <div className="max-w-4xl mx-auto reveal">
-        <h2 className="text-3xl text-center font-bold mb-6">Sobre mí</h2>
-        <div className="rainbow-line w-24 mx-auto mb-12 h-1 rounded-full"></div>
+    <section id="about" className="px-6 py-24 max-w-3xl mx-auto relative z-10">
+      {/* Contenedor animado */}
+      <div className="fade-up" ref={fadeUpRef}>
+        {/* Línea decorativa superior */}
+        <div
+          className="section-line mb-4"
+          style={{
+            width: '40px',
+            height: '2px',
+            background: 'linear-gradient(90deg, var(--accent) 0%, transparent 100%)'
+          }}
+        ></div>
+        <h2 className="text-3xl font-bold mb-6 text-white tracking-tight">
+          Sobre mí
+        </h2>
 
-        <div className="grid md:grid-cols-3 gap-10 items-start">
-          <div className="flex justify-center md:justify-start">
-            <div className="w-44 h-44 glass rounded-3xl flex items-center justify-center bg-stone-800">
-              👤
-            </div>
-          </div>
+        {/* Tarjeta con efecto de cristal */}
+        <div className="glass-card rounded-xl p-8 md:p-10">
+          <p
+            className="leading-relaxed text-slate-400"
+            style={{
+              fontSize: `${baseSize * 1.05}px`
+            }}
+          >
+            {config.about_text}
+          </p>
 
-          <div className="md:col-span-2">
-            <p className="text-stone-300 leading-relaxed text-lg">
-              Soy un desarrollador Full Stack apasionado por construir aplicaciones web completas,
-              escalables y con una experiencia de usuario excepcional.
-            </p>
-
-            <div className="flex flex-wrap gap-3 mt-6">
-              <span className="tag-red px-3 py-1 rounded-full text-xs">Creativo</span>
-              <span className="tag-blue px-3 py-1 rounded-full text-xs">Detallista</span>
-              <span className="tag-green px-3 py-1 rounded-full text-xs">Colaborativo</span>
-              <span className="tag-violet px-3 py-1 rounded-full text-xs">Autodidacta</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default About;

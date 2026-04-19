@@ -1,64 +1,117 @@
-import { useState } from "react";
+import React from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
-export default function Contact() {
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSent(true);
-
-    setTimeout(() => {
-      setSent(false);
-    }, 3000);
+interface ContactProps {
+  config: {
+    contact_email: string;
+    github_url: string;
+    linkedin_url: string;
+    accent_color: string;
   };
+}
+
+const Contact: React.FC<ContactProps> = ({ config }) => {
+  const fadeUpRef = useIntersectionObserver();
 
   return (
-    <section id="contact" className="py-24 px-6 relative z-10">
-      <div className="max-w-xl mx-auto ">
+    <section id="contact" className="px-6 py-24 max-w-3xl mx-auto relative z-10">
+      <div className="text-center fade-up" ref={fadeUpRef}>
+        {/* Línea decorativa superior */}
+        <div className="section-line mb-4 mx-auto"></div>
+        
+        <h2 className="text-3xl font-bold mb-3 text-white">Hablemos</h2>
+        <p className="text-sm mb-10" style={{ color: 'var(--muted)' }}>
+          ¿Tienes un proyecto en mente? Me encantaría escucharte.
+        </p>
 
-        <h2 className="text-3xl font-bold mb-4 text-center text-white">
-        ¿Trabajamos juntos?
-
-    </h2>
-
-        <div className="rainbow-line w-24 mx-auto mb-8 rounded-full"></div>
-        <form
-          onSubmit={handleSubmit}
-          className="glass p-6 rounded-2xl space-y-4 text-left"
-        >
-
-          <input
-            type="text"
-            placeholder="Nombre"
-            className="w-full p-3 rounded-lg bg-stone-900 border border-stone-800 text-white outline-none focus:border-purple-500 transition"
-          />
-
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-3 rounded-lg bg-stone-900 border border-stone-800 text-white outline-none focus:border-purple-500 transition"
-          />
-
-          <textarea
-            placeholder="Mensaje"
-            rows={4}
-            className="w-full p-3 rounded-lg bg-stone-900 border border-stone-800 text-white outline-none focus:border-purple-500 transition resize-none"
-          />
-
-          <button
-            className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-90 transition font-medium"
+        {/* Tarjeta de cristal (Glassmorphism) centrada */}
+        <div className="glass-card rounded-xl py-8 px-20 inline-flex flex-col items-center gap-6">
+          
+          {/* Email con SVG */}
+          <a 
+            href={`mailto:${config.contact_email}`} 
+            className="flex items-center gap-3 hover:text-white transition-colors duration-300"
+            style={{ color: 'var(--muted)' }}
           >
-            Enviar mensaje
-          </button>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              style={{ color: 'var(--accent)' }}
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <span className="text-sm font-medium tracking-tight">{config.contact_email}</span>
+          </a>
 
-          {sent && (
-            <p className="text-green-400 text-sm text-center">
-              ✔ Mensaje enviado correctamente
-            </p>
-          )}
+          {/* Botones de Redes Sociales */}
+          <div className="flex gap-4">
+            {/* GitHub */}
+            <a 
+              href={config.github_url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
+              style={{ 
+                background: 'rgba(255,255,255,0.05)', 
+                border: '1px solid rgba(255,255,255,0.08)' 
+              }}
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="18" 
+                height="18" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="white" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+              </svg>
+            </a>
 
-        </form>
+            {/* LinkedIn */}
+            <a 
+              href={config.linkedin_url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
+              style={{ 
+                background: 'rgba(255,255,255,0.05)', 
+                border: '1px solid rgba(255,255,255,0.08)' 
+              }}
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="18" 
+                height="18" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="white" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect width="4" height="12" x="2" y="9"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default Contact;

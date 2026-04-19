@@ -1,133 +1,71 @@
-import { ShoppingCart, BarChart3, MessageCircle, ExternalLink } from "lucide-react";
+import React from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import ProjectCard from './ProjectCard'; // Importamos el componente que definimos antes
 
-export default function Projects() {
+interface Project {
+  title: string;
+  desc: string;
+  icon: string;
+  tags: string[];
+  gradient: string;
+}
+
+// Tus datos de proyectos
+const PROJECTS_DATA: Project[] = [
+  {
+    title: 'SaaS Dashboard',
+    desc: 'Panel analítico en tiempo real con gráficas interactivas y gestión de equipos.',
+    icon: 'layout',
+    tags: ['React', 'Node.js', 'PostgreSQL'],
+    gradient: 'from-indigo-600 via-purple-600 to-indigo-900'
+  },
+  {
+    title: 'E-Commerce Platform',
+    desc: 'Marketplace completo con pasarela de pagos, carrito y panel de vendedor.',
+    icon: 'shopping-bag',
+    tags: ['Next.js', 'Stripe', 'MongoDB'],
+    gradient: 'from-emerald-500 via-teal-600 to-emerald-900'
+  },
+  {
+    title: 'AI Content Engine',
+    desc: 'Herramienta de generación de contenido con IA, flujos automatizados y API REST.',
+    icon: 'cpu',
+    tags: ['Python', 'FastAPI', 'OpenAI'],
+    gradient: 'from-amber-500 via-orange-600 to-red-900'
+  }
+];
+
+const Projects: React.FC = () => {
+  const headerRef = useIntersectionObserver();
+
   return (
-    <section id="projects" className="relative z-10 py-24 px-6">
-  <div className="max-w-6xl mx-auto reveal">
+    <section id="projects" className="px-6 py-24 max-w-5xl mx-auto">
+      {/* Título de Sección animado con el Hook */}
+      <div ref={headerRef} className="mb-12 fade-up">
+        {/* Línea decorativa de acento */}
+        <div
+          className="section-line mb-4"
+          style={{
+            width: '40px',
+            height: '2px',
+            background: 'linear-gradient(90deg, var(--accent) 0%, transparent 100%)'
+          }}
+        ></div>        <h2 className="text-3xl font-bold mb-2 text-white tracking-tight">Proyectos</h2>
+        <p className="text-sm text-slate-500 font-medium">Trabajo seleccionado</p>
+      </div>
 
-    <h2 className="text-3xl font-bold mb-4 text-center text-white">
-      Proyectos Destacados
-    </h2>
-
-        <div className="rainbow-line w-24 mx-auto mb-12 h-1 rounded-full"></div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-          {/* PROJECT 1 */}
-          <div className=" glass rounded-2xl overflow-hidden transition hover:-translate-y-2">
-
-            {/* IMAGE */}
-            <div className="h-44 bg-stone-800 flex items-center justify-center text-stone-500">
-              Imagen Proyecto
-            </div>
-
-            {/* CONTENT */}
-            <div className="p-6">
-              <div className="flex items-center gap-2">
-                <ShoppingCart size={20} />
-                <h3 className="font-semibold text-lg">E-Commerce</h3>
-              </div>
-
-              <p className="text-sm text-stone-400 mt-2">
-                Tienda online completa con carrito y pagos
-              </p>
-
-              {/* TECH */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="tag-red px-3 py-1 text-xs rounded-full">React</span>
-                <span className="tag-blue px-3 py-1 text-xs rounded-full">Node.js</span>
-                <span className="tag-green px-3 py-1 text-xs rounded-full">MongoDB</span>
-              </div>
-
-              {/* BUTTONS */}
-              <div className="flex gap-3 mt-5">
-                                <a className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-purple-900 hover:bg-purple-700 transition">
-
-                  GitHub
-                </a>
-
-                <a
-                  href="#"
-                  className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition"
-                >
-                  <ExternalLink size={14} />
-                  Deploy
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* PROJECT 2 */}
-          <div className=" glass rounded-2xl overflow-hidden transition hover:-translate-y-2 ">
-
-            <div className="h-44 bg-stone-800 flex items-center justify-center text-stone-500">
-              Imagen Dashboard
-            </div>
-
-            <div className="p-6">
-              <div className="flex items-center gap-2">
-                <BarChart3 size={20} />
-                <h3 className="font-semibold text-lg">Dashboard</h3>
-              </div>
-
-              <p className="text-sm text-stone-400 mt-2">
-                Panel de métricas en tiempo real
-              </p>
-
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="tag-blue px-3 py-1 text-xs rounded-full">React</span>
-                <span className="tag-green px-3 py-1 text-xs rounded-full">Firebase</span>
-                <span className="tag-violet px-3 py-1 text-xs rounded-full">Charts</span>
-              </div>
-
-              <div className="flex gap-3 mt-5">
-                <a className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-purple-900 hover:bg-purple-700 transition">
-                GitHub
-                </a>
-
-                <a className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition">
-                  <ExternalLink size={14} /> Deploy
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* PROJECT 3 */}
-          <div className=" glass rounded-2xl overflow-hidden transition hover:-translate-y-2 ">
-
-            <div className="h-44 bg-stone-800 flex items-center justify-center text-stone-500">
-              Imagen Chat App
-            </div>
-
-            <div className="p-6">
-              <div className="flex items-center gap-2">
-                <MessageCircle size={20} />
-                <h3 className="font-semibold text-lg">Chat App</h3>
-              </div>
-
-              <p className="text-sm text-stone-400 mt-2">
-                Mensajería en tiempo real
-              </p>
-
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="tag-red px-3 py-1 text-xs rounded-full">Socket.io</span>
-                <span className="tag-blue px-3 py-1 text-xs rounded-full">React</span>
-                <span className="tag-green px-3 py-1 text-xs rounded-full">Node.js</span>
-              </div>
-
-              <div className="flex gap-3 mt-5">
-                <a className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-purple-900 hover:bg-purple-700 transition">
-               GitHub
-                </a>
-
-                <a className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition">
-                  <ExternalLink size={14} /> Deploy
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
+      {/* Grid de Proyectos: se adapta de 1 col en móvil a 3 en desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PROJECTS_DATA.map((proj, idx) => (
+          <ProjectCard
+            key={idx}
+            project={proj}
+            index={idx}
+          />
+        ))}
       </div>
     </section>
   );
-}
+};
+
+export default Projects;

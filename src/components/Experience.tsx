@@ -1,76 +1,97 @@
-export default function Experience() {
+import React from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+
+interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+}
+
+const EXPERIENCE_DATA: ExperienceItem[] = [
+  {
+    company: 'Tech Solutions Inc.',
+    role: 'Senior Full Stack Developer',
+    period: '2022 — Presente',
+    description: 'Liderazgo de equipo en el desarrollo de microservicios escalables y optimización de rendimiento frontend.'
+  },
+  {
+    company: 'Creative Agency',
+    role: 'Frontend Developer',
+    period: '2020 — 2022',
+    description: 'Diseño e implementación de interfaces interactivas y animaciones complejas para clientes internacionales.'
+  },
+  {
+    company: 'Startup Hub',
+    role: 'Junior Web Developer',
+    period: '2018 — 2020',
+    description: 'Desarrollo de MVPs y mantenimiento de aplicaciones web utilizando el stack MERN.'
+  }
+];
+
+const ExperienceCard: React.FC<{ item: ExperienceItem; index: number; accentColor: string }> = ({ item, index, accentColor }) => {
+  const ref = useIntersectionObserver();
+
   return (
-    <section id="experience" className="relative z-10 py-24 px-6">
-      <div className="max-w-3xl mx-auto reveal">
+    <div 
+      ref={ref} 
+      className="relative pl-8 pb-12 last:pb-0 scroll-fade-left"
+      style={{ animationDelay: `${index * 0.15}s` }}
+    >
+      {/* Línea vertical del Timeline */}
+      <div className="absolute left-[11px] top-0 h-full w-[2px] bg-white/5"></div>
+      
+      {/* Punto de acento en el Timeline */}
+      <div 
+        className="absolute left-0 top-2 w-6 h-6 rounded-full border-4 border-[#0a0e17] z-10"
+        style={{ backgroundColor: accentColor }}
+      ></div>
 
-        <h2 className="text-3xl font-bold text-center mb-4 text-white">
-          Experiencia
-        </h2>
+      {/* Tarjeta de Experiencia */}
+      <div className="glass-card rounded-xl p-6 hover:translate-x-2 transition-transform duration-300">
+        <span className="text-xs font-bold uppercase tracking-widest opacity-50 mb-1 block" style={{ color: accentColor }}>
+          {item.period}
+        </span>
+        <h3 className="text-xl font-bold text-white">{item.role}</h3>
+        <p className="text-sm font-medium mb-3 opacity-80" style={{ color: accentColor }}>
+          {item.company}
+        </p>
+        <p className="text-sm text-slate-400 leading-relaxed">
+          {item.description}
+        </p>
+      </div>
+    </div>
+  );
+};
 
-        <div className="rainbow-line w-24 mx-auto mb-12 h-1 rounded-full"></div>
+const Experience: React.FC<{ config: { accent_color: string } }> = ({ config }) => {
+  const headerRef = useIntersectionObserver();
 
-        {/* TIMELINE */}
-        <div className="relative">
+  return (
+    <section id="experience" className="px-6 py-24 max-w-4xl mx-auto">
+      {/* Cabecera */}
+      <div ref={headerRef} className="mb-12 fade-up">
+        <div 
+          className="w-10 h-[2px] mb-4" 
+          style={{ background: `linear-gradient(90deg, ${config.accent_color}, transparent)` }}
+        ></div>
+        <h2 className="text-3xl font-bold mb-2 text-white">Experiencia</h2>
+        <p className="text-sm text-slate-500">Trayectoria profesional</p>
+      </div>
 
-          {/* línea vertical */}
-          <div className="absolute left-4 top-0 h-full w-[2px] bg-stone-800"></div>
-
-          <div className="space-y-10">
-
-            {/* ITEM 1 */}
-            <div className="relative pl-12">
-
-              {/* dot */}
-              <div className="absolute left-[6px] top-2 w-4 h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-
-              <div className="glass p-5 rounded-2xl transition hover:scale-[1.01]">
-                <p className="text-xs text-stone-400">2023 - Presente</p>
-
-                <h3 className="text-lg font-semibold text-white mt-1">
-                  Full Stack Developer
-                </h3>
-
-                <p className="text-sm text-stone-400 mt-2">
-                  Desarrollo de aplicaciones web modernas, escalables y APIs.
-                </p>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="tag-purple px-3 py-1 text-xs rounded-full">React</span>
-                  <span className="tag-blue px-3 py-1 text-xs rounded-full">Node.js</span>
-                  <span className="tag-green px-3 py-1 text-xs rounded-full">MongoDB</span>
-                </div>
-              </div>
-            </div>
-
-            {/* ITEM 2 */}
-            <div className="relative pl-12">
-
-              {/* dot */}
-              <div className="absolute left-[6px] top-2 w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-
-              <div className="glass p-5 rounded-2xl transition hover:scale-[1.01]">
-                <p className="text-xs text-stone-400">2022 - 2023</p>
-
-                <h3 className="text-lg font-semibold text-white mt-1">
-                  Frontend Developer
-                </h3>
-
-                <p className="text-sm text-stone-400 mt-2">
-                  Interfaces modernas, responsivas y optimizadas.
-                </p>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="tag-blue px-3 py-1 text-xs rounded-full">React</span>
-                  <span className="tag-violet px-3 py-1 text-xs rounded-full">Tailwind</span>
-                  <span className="tag-green px-3 py-1 text-xs rounded-full">UI Design</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
+      {/* Contenedor del Timeline */}
+      <div className="mt-8">
+        {EXPERIENCE_DATA.map((item, idx) => (
+          <ExperienceCard 
+            key={idx} 
+            item={item} 
+            index={idx} 
+            accentColor={config.accent_color} 
+          />
+        ))}
       </div>
     </section>
   );
-}
+};
+
+export default Experience;

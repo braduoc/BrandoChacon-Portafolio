@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
-import Navbar from "./components/Navbar";
+// Componentes
+import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Projects from "./components/Projects";
@@ -9,61 +10,79 @@ import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 import Starfield from "./components/Starfield";
 
+// Estilos
 import "./App.css";
-import FloatingButton from "./components/FloatingButton";
+
+// ⚙️ Configuración centralizada del Portafolio
+const portfolioConfig = {
+  developer_name: "Brando Chacon",
+  developer_title: "Full Stack Developer",
+  hero_tagline: "Construyo experiencias digitales escalables, modernas y con atención obsesiva al detalle.",
+  about_text: "Soy un desarrollador full stack con +5 años de experiencia construyendo productos digitales de alto impacto. Me especializo en arquitecturas modernas, APIs escalables y interfaces que los usuarios aman. Creo en el código limpio, el diseño intencionado y la mejora continua.",
+  contact_email: "brandochacon.js@gmail.com",
+  github_url: "https://github.com/tuusuario",
+  linkedin_url: "https://linkedin.com/in/tuusuario",
+  accent_color: "#6366f1", // Color Indigo de Tailwind
+  background_color: "#0a0e17",
+  font_size: 16
+};
 
 export default function App() {
   useEffect(() => {
-    // 👇 Scroll reveal (igual que tu HTML original)
+    // 👇 Lógica de Scroll Reveal optimizada para React
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            // Usamos 'in-view' que es la clase que definimos en el CSS global
+            entry.target.classList.add("in-view");
           }
         });
       },
-      { threshold: 0.12 }
+      { 
+        threshold: 0.12,
+        rootMargin: "0px 0px -50px 0px" // Dispara la animación un poco antes de que llegue al viewport
+      }
     );
 
-    const elements = document.querySelectorAll(".reveal");
+    // Seleccionamos todos los elementos con clases de animación
+    const elements = document.querySelectorAll(".fade-up, .scroll-scale, .scroll-fade-left");
     elements.forEach((el) => observer.observe(el));
 
-    // 👇 Cleanup (importante en React)
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
   }, []);
 
   return (
-    <div className="relative bg-stone-950 text-stone-100 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#0a0e17] px-2 text-slate-100  overflow-x-hidden selection:bg-indigo-500/30">
       
-      {/* 🌌 Fondo estrellas */}
+      {/* 🌌 Fondo animado (Canvas) */}
       <Starfield />
 
-      {/* 🧭 Navbar */}
-      <Navbar />
+      {/* 🧭 Navegación (Sticky) */}
+      <Nav config={portfolioConfig} />
 
-      {/* 🚀 Hero */}
-      <Hero />
+      {/* 🚀 Contenido Principal */}
+      <main className="relative z-10">
+        
+        <Hero config={portfolioConfig} />
 
-      {/* 👤 About */}
-      <About />
+        <About config={portfolioConfig} />
 
-      {/* 💼 Projects */}
-      <Projects />
+        <Projects />
 
-      {/* 📊 Skills */}
-      <Skills />
+        <Skills config={portfolioConfig} />
 
-      {/* 🧾 Experience */}
-      <Experience />
+        <Experience config={portfolioConfig} />
 
-      {/* 📬 Contact */}
-      <Contact />
+        <Contact config={portfolioConfig} />
 
-      {/* 🔘 Botón flotante */}
-      <FloatingButton />
+      </main>
+      
+      <footer className="py-8 text-center text-slate-600 text-xs tracking-widest uppercase border-t border-white/5">
+        © {new Date().getFullYear()} Brando Chacon. 
+      </footer>
 
     </div>
   );
