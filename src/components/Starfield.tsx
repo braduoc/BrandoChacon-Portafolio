@@ -22,7 +22,7 @@ const Starfield: React.FC = () => {
     if (!ctx) return;
 
     const isMobile = window.innerWidth < 768;
-    const STAR_COUNT = isMobile ? 50 : 140;
+    const STAR_COUNT = isMobile ? 80 : 140;
 
     const stars: Star[] = [];
     let animationId: number;
@@ -39,7 +39,7 @@ const Starfield: React.FC = () => {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // 🔥 evita acumulación de scale
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); 
     }
 
     resizeCanvas();
@@ -62,7 +62,7 @@ const Starfield: React.FC = () => {
     function drawStars(time: number) {
       if (!canvas || !ctx) return;
 
-      const fps = isMobile ? 30 : 60;
+      const fps = isMobile ? 40 : 60;
       const interval = 1000 / fps;
 
       if (time - lastTime < interval) {
@@ -74,7 +74,6 @@ const Starfield: React.FC = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const s of stars) {
-        // Parpadeo liviano
         s.opacity += s.pulse * s.pulseDir;
 
         if (s.opacity <= 0.1 || s.opacity >= 0.6) {
