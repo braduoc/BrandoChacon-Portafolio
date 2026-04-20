@@ -55,7 +55,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#080012] px-2 text-slate-100  overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="relative min-h-screen bg-[#040011] px-2 text-slate-100  overflow-x-hidden selection:bg-indigo-500/30">
       
       {/* 🌌 Fondo animado (Canvas) */}
       <Starfield />
