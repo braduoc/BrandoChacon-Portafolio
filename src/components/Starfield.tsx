@@ -22,16 +22,24 @@ const Starfield: React.FC = () => {
     if (!ctx) return;
 
     const isMobile = window.innerWidth < 768;
-    const STAR_COUNT = isMobile ? 80 : 200;
+    const STAR_COUNT = isMobile ? 50 : 140;
 
     const stars: Star[] = [];
     let animationId: number;
+    let lastTime = 0;
 
     function resizeCanvas() {
-      if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (!canvas || !ctx) return;
 
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // 🔥 evita acumulación de scale
     }
 
     resizeCanvas();
@@ -40,27 +48,36 @@ const Starfield: React.FC = () => {
     // Crear estrellas
     for (let i = 0; i < STAR_COUNT; i++) {
       stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.2 + 0.3,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.3,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1 + 0.2,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.2,
         opacity: Math.random() * 0.5 + 0.1,
-        pulse: Math.random() * 0.02,
+        pulse: Math.random() * 0.01,
         pulseDir: Math.random() > 0.5 ? 1 : -1
       });
     }
 
-    function drawStars() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+    function drawStars(time: number) {
+      if (!canvas || !ctx) return;
 
+      const fps = isMobile ? 30 : 60;
+      const interval = 1000 / fps;
+
+      if (time - lastTime < interval) {
+        animationId = requestAnimationFrame(drawStars);
+        return;
+      }
+      lastTime = time;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const s of stars) {
-        // Parpadeo liviano (sin Date.now)
+        // Parpadeo liviano
         s.opacity += s.pulse * s.pulseDir;
 
-        if (s.opacity <= 0.1 || s.opacity >= 0.7) {
+        if (s.opacity <= 0.1 || s.opacity >= 0.6) {
           s.pulseDir *= -1;
         }
 
@@ -73,11 +90,11 @@ const Starfield: React.FC = () => {
         s.x += s.vx;
         s.y += s.vy;
 
-        // Loop infinito
-        if (s.x < -10) s.x = canvas!.width + 10;
-        if (s.x > canvas!.width + 10) s.x = -10;
-        if (s.y < -10) s.y = canvas!.height + 10;
-        if (s.y > canvas!.height + 10) s.y = -10;
+        // Loop
+        if (s.x < 0) s.x = window.innerWidth;
+        if (s.x > window.innerWidth) s.x = 0;
+        if (s.y < 0) s.y = window.innerHeight;
+        if (s.y > window.innerHeight) s.y = 0;
       }
 
       animationId = requestAnimationFrame(drawStars);
