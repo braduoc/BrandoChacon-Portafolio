@@ -22,7 +22,7 @@ const Starfield: React.FC = () => {
     if (!ctx) return;
 
     const isMobile = window.innerWidth < 768;
-    const STAR_COUNT = isMobile ? 80 : 140;
+    const STAR_COUNT = isMobile ? 100 : 140;
 
     const stars: Star[] = [];
     let animationId: number;
@@ -62,7 +62,7 @@ const Starfield: React.FC = () => {
     function drawStars(time: number) {
       if (!canvas || !ctx) return;
 
-      const fps = isMobile ? 40 : 60;
+      const fps = isMobile ? 50 : 60;
       const interval = 1000 / fps;
 
       if (time - lastTime < interval) {
