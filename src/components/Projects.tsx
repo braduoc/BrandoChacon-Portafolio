@@ -8,6 +8,8 @@ interface Project {
   icon: string;
   tags: string[];
   gradient: string;
+  demoUrl: string;
+  repoUrl: string;
 }
 
 // Tus datos de proyectos
@@ -16,22 +18,28 @@ const PROJECTS_DATA: Project[] = [
     title: 'SaaS Dashboard',
     desc: 'Panel analítico en tiempo real con gráficas interactivas y gestión de equipos.',
     icon: 'layout',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    gradient: 'from-indigo-600 via-purple-600 to-indigo-900'
+    tags: ['React', 'TypeScript', 'Node', 'PostgreSQL', 'Tailwind'],
+    gradient: 'from-indigo-600 via-purple-600 to-indigo-900',
+    demoUrl: '#',
+    repoUrl: '#'
   },
   {
     title: 'E-Commerce Platform',
     desc: 'Marketplace completo con pasarela de pagos, carrito y panel de vendedor.',
     icon: 'shopping-bag',
-    tags: ['Next.js', 'Stripe', 'MongoDB'],
-    gradient: 'from-emerald-500 via-teal-600 to-emerald-900'
+    tags: ['Angular', 'TypeScript','netlify', 'MongoDB', 'Tailwind'],
+    gradient: 'from-emerald-500 via-teal-600 to-emerald-900',
+    demoUrl: '#',
+    repoUrl: '#'
   },
   {
     title: 'AI Content Engine',
     desc: 'Herramienta de generación de contenido con IA, flujos automatizados y API REST.',
     icon: 'cpu',
-    tags: ['Python', 'FastAPI', 'OpenAI'],
-    gradient: 'from-amber-500 via-orange-600 to-red-900'
+    tags: ['Python', 'FastAPI', 'OpenAI', 'Docker'],
+    gradient: 'from-amber-500 via-orange-600 to-red-900',
+    demoUrl: '#',
+    repoUrl: '#'
   }
 ];
 
