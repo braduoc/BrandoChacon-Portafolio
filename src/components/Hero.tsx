@@ -36,7 +36,7 @@ const Hero: React.FC<HeroProps> = ({ config }) => {
         </div>
 
         {/* Nombre */}
-        <h1 className="font-bold text-5xl md:text-7xl mb-4 leading-tight tracking-tight text-white">
+        <h1 className="font-bold text-4xl md:text-7xl mb-4 leading-tight tracking-tight text-white">
           {config.developer_name}
         </h1>
 
@@ -92,8 +92,8 @@ const Hero: React.FC<HeroProps> = ({ config }) => {
 
           {/* Botón Terciario: Descargar CV */}
           <a
-            href="/cv-fullstack.pdf" // Asegúrate de que el archivo esté en la carpeta /public
-            download="Brando_Chacon_Desarrollador_FullStack.pdf"
+            href="/Cv_Brando_Chacon_Desarrollador_FullStack.pdf" // Asegúrate de que el archivo esté en la carpeta /public
+            download="Cv_Brando_Chacon_Desarrollador_FullStack.pdf"
             className="px-7 py-3 rounded-lg text-sm font-semibold border flex items-center gap-2 transition-all hover:border-blue-500/50 hover:bg-blue-500/5 active:scale-95"
             style={{
               background: 'rgba(255, 255, 255, 0.02)',

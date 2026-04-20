@@ -31,6 +31,9 @@ const About: React.FC<AboutProps> = ({ config }) => {
 
         {/* Tarjeta con efecto de cristal */}
         <div className="glass-card rounded-xl p-8 md:p-10">
+          <h2 className="text-3xl font-bold mb-6 text-white tracking-tight">
+          Hola, soy Brando 👋
+        </h2>
           <p
             className="leading-relaxed text-slate-400"
             style={{

@@ -25,7 +25,7 @@ const Contact: React.FC<ContactProps> = ({ config }) => {
         </p>
 
         {/* Tarjeta de cristal (Glassmorphism) centrada */}
-        <div className="glass-card rounded-xl py-8 px-20 inline-flex flex-col items-center gap-6">
+        <div className="glass-card rounded-xl w-full py-8 max-w-80 inline-flex flex-col items-center gap-6">
           
           {/* Email con SVG */}
           <a 

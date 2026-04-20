@@ -31,9 +31,9 @@ const Skills: React.FC<SkillsProps> = () => {
       {/* Cabecera idéntica al original */}
       <div ref={headerRef} className="mb-12 fade-up" style={{ animationDelay: '0.1s' }}>
         <div className="section-line mb-4"></div>
-        <h2 className="text-3xl font-bold mb-2 text-white">Skills</h2>
+        <h2 className="text-3xl font-bold mb-2 text-white">Tecnologías</h2>
         <p className="text-sm" style={{ color: 'var(--muted)' }}>
-          Tecnologías y herramientas
+          Stack técnico
         </p>
       </div>
 

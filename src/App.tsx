@@ -20,8 +20,8 @@ const portfolioConfig = {
   hero_tagline: "Construyo experiencias digitales escalables, modernas y con atención obsesiva al detalle.",
   about_text: "Soy un desarrollador full stack con +5 años de experiencia construyendo productos digitales de alto impacto. Me especializo en arquitecturas modernas, APIs escalables y interfaces que los usuarios aman. Creo en el código limpio, el diseño intencionado y la mejora continua.",
   contact_email: "brandochacon.js@gmail.com",
-  github_url: "https://github.com/tuusuario",
-  linkedin_url: "https://linkedin.com/in/tuusuario",
+  github_url: "https://github.com/braduoc",
+  linkedin_url: "linkedin.com/in/brandochacon/",
   accent_color: "#6366f1", // Color Indigo de Tailwind
   background_color: "#0a0e17",
   font_size: 16
@@ -55,7 +55,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#0a0e17] px-2 text-slate-100  overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="relative min-h-screen bg-[#080012] px-2 text-slate-100  overflow-x-hidden selection:bg-indigo-500/30">
       
       {/* 🌌 Fondo animado (Canvas) */}
       <Starfield />
