@@ -70,7 +70,7 @@ const Nav: React.FC<NavProps> = ({ config }) => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="sm:hidden  mt-4 px-4 pb-4 flex flex-col gap-4  bg-[#0a0e17]/95 backdrop-blur-xl rounded-xl">
+        <div className="sm:hidden  mt-4 px-4 p-4 flex flex-col gap-4  bg-[#0a0e17]/95 backdrop-blur-xl rounded-xl">
           <button onClick={() => scrollToSection('projects')} className="text-slate-400 hover:text-white transition">
             Proyectos
           </button>
